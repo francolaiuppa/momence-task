@@ -15,7 +15,7 @@ interface CurrencyExchangeFormProps {
 const CurrencyExchangeForm: React.FC<CurrencyExchangeFormProps> = ({
   exchangeRates,
 }) => {
-  const [amount, setAmount] = useState<number>(100) // Default to 100
+  const [amount, setAmount] = useState<number|string>(100) // Default to 100
   const [currency, setCurrency] = useState<string>('EUR') // Default to EUR
   const [total, setTotal] = useState<string>('Waiting...') // Placeholder for the total
 
@@ -45,8 +45,10 @@ const CurrencyExchangeForm: React.FC<CurrencyExchangeFormProps> = ({
         currency="CZK"
         amount={amount}
         onChange={e => {
-          setAmount(Number(e.target.value))
-          calculateTotal()
+          setAmount(e.target.value === '' ? '' : Number(e.target.value)); // Handle empty input
+          if (e.target.value !== '') {
+            calculateTotal();
+          }
         }}
       />
 
