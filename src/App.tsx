@@ -1,24 +1,31 @@
 import React from 'react'
-import tw from 'twin.macro'
-import { Button, Logo } from './components'
 
-const styles = {
-  // Move long class sets out of jsx to keep it scannable
-  container: ({ hasBackground }: { hasBackground: boolean }) => [
-    tw`flex flex-col items-center justify-center h-screen`,
-    hasBackground && tw`bg-gradient-to-b from-electric to-ribbon`,
-  ],
+import { Heading } from './components/atoms'
+import { Page, ExchangeRatesContent } from './components/molecules'
+import { exchangeRates } from './mockDataDeleteMe'
+
+const App = () => {
+  const error = null;
+  const refetch = () => {};
+  const loading = false;
+  const lastUpdated = new Date().toISOString(); 
+  return (
+    <Page>
+      <Heading type="h1">CNB Currency Converter</Heading>
+      <Heading type="h2">
+        Check the latest daily exchange rates from the Czech National Bank or
+        use our calculator to easily convert amounts in real-time.
+      </Heading>
+
+      <ExchangeRatesContent
+        error={error}
+        refetch={refetch}
+        loading={loading}
+        exchangeRates={exchangeRates}
+        lastUpdated={lastUpdated}
+      />
+    </Page>
+  )
 }
-
-const App = () => (
-  <div css={styles.container({ hasBackground: true })}>
-    <div tw="flex flex-col justify-center h-full gap-y-5">
-      <Button $variant="primary">Submit</Button>
-      <Button $variant="secondary">Cancel</Button>
-      <Button $isSmall>Close</Button>
-    </div>
-    <Logo />
-  </div>
-)
 
 export default App
