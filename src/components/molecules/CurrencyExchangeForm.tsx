@@ -68,7 +68,8 @@ const CurrencyExchangeForm: React.FC<CurrencyExchangeFormProps> = ({ exchangeRat
   return (
     <FloatingContainer>
       <LargeInputField label="Amount">
-        <span tw="mr-1">Kč</span>
+        <span tw="mr-1">{getFlagEmoji('CZK')} </span>
+        <span tw="mr-1">CZK </span>
         <input id="Amount" type="number" min={0} step="1" css={styles.largeInputFieldInput} value={amount} onChange={(e) => {
           setAmount(Number(e.target.value));
           calculateTotal();
