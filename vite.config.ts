@@ -19,4 +19,10 @@ export default defineConfig({
       },
     }),
   ],
+  test: {
+    globals: true, // Enables global variables like `describe`, `it`, etc.
+    environment: 'jsdom', // Simulates a DOM-like environment for React components
+    setupFiles: './vitest.setup.ts', // Add this if you have global setup needs
+    css: true, // Enables CSS support in tests
+  },
 })
