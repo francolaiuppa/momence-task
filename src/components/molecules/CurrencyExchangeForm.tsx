@@ -20,13 +20,16 @@ const CurrencyExchangeForm: React.FC<CurrencyExchangeFormProps> = ({
   const [total, setTotal] = useState<string>('Waiting...') // Placeholder for the total
 
   const calculateTotal = () => {
+    if (amount === '') {
+      return;
+    }
     if (!exchangeRates) {
       setTotal('Invalid rate')
       return
     }
     const rate = exchangeRates.find(rate => rate.code === currency)?.rate
     if (rate) {
-      const convertedAmount = (amount / rate).toFixed(2)
+      const convertedAmount = (Number(amount) / rate).toFixed(2)
       setTotal(`${convertedAmount} ${currency}`)
     } else {
       setTotal('Invalid rate')
