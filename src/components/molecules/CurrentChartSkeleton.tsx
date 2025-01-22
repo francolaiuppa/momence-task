@@ -10,9 +10,9 @@ const HeadingTableRow = tw.tr`border-b-2 border-gray-200`;
 const HeadingTableLeftHeading = tw.th`text-lg font-semibold py-4 text-gray-300 px-6`;
 const HeadingTableRightHeading = tw.th`text-lg font-semibold py-4 text-gray-300 text-right px-6 whitespace-nowrap`;
 const TableBody = tw.tbody`font-medium text-gray-800 mt-4`;
-const TableCellLeft = tw.td`py-2 pl-6 text-clip flex flex-row items-center`;
-const TableCellRight = tw.td`py-2 pr-6`;
-const LastUpdatedAtContainer = tw.span`py-2 pl-6 text-clip flex flex-row items-center`;
+const TableCellLeft = tw.td`pb-3 pl-6 text-clip flex flex-row items-center`;
+const TableCellRight = tw.td`pb-3 pr-6`;
+const LastUpdatedAtContainer = tw.span`py-2 pl-6 text-clip flex flex-row items-center justify-center w-full`;
 
 const SkeletonPlaceholder = () => (
   <PulsingAnimation>
