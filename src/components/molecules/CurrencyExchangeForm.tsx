@@ -27,9 +27,9 @@ const CurrencyExchangeForm: React.FC<CurrencyExchangeFormProps> = ({
       setTotal('Invalid rate')
       return
     }
-    const rate = exchangeRates.find(rate => rate.code === currency)?.rate
+    const rate = exchangeRates.find(rate => rate.code === currency)
     if (rate) {
-      const convertedAmount = (Number(amount) / rate).toFixed(2)
+      const convertedAmount = ((Number(amount)*(rate.ratePer100CZK/100))).toFixed(2)
       setTotal(`${convertedAmount} ${currency}`)
     } else {
       setTotal('Invalid rate')
