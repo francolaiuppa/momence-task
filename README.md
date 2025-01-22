@@ -1,218 +1,130 @@
-# Twin + Vite + Styled Components + TypeScript
+# Momence Currency Calculator Challenge
 
-<p><a href="https://github.com/ben-rogerson/twin.macro#gh-light-mode-only" target="_blank"><img src="../.github/twin-light.svg" alt="Twin" width="60" height="70"></a><a href="https://github.com/ben-rogerson/twin.macro#gh-dark-mode-only" target="_blank"><img src="../.github/twin-dark.svg" alt="Twin" width="60" height="70"></a><a href="https://vitejs.dev/" target="_blank"><img src="../.github/vite.svg" alt="Vite" width="50" height="70"></a><a href="https://styled-components.com#gh-light-mode-only" target="_blank"><img src="../.github/styled-components-light.svg" alt="Styled components" width="105" height="70"></a><a href="https://styled-components.com#gh-dark-mode-only" target="_blank"><img src="../.github/styled-components-dark.svg" alt="Styled components" width="105" height="70"></a><a href="https://www.typescriptlang.org/" target="_blank"><img src="../.github/typescript.svg" alt="TypeScript" width="60" height="70"></a></p>
+## Overview
 
-**Download this example using [degit](https://github.com/Rich-Harris/degit)**
+This is my submission for Momence's Full-Stack Developer position.
+The application allows users to view the latest exchange rates for
+common currencies and convert amounts from CZK to any of the supported
+currencies.
 
-```shell
-npx degit https://github.com/ben-rogerson/twin.examples/vite-styled-components-typescript folder-name
+This app is deployed at https://momence-task.netlify.app/
+
+## Architecture Decisions
+
+- **TailwindCSS**: Selected for rapid styling and a utility-first design approach, enabling consistent and maintainable styles.
+- **React Query**: Deliberately omitted to avoid unnecessary overhead for a single API call. I’m happy to elaborate further on this decision if needed.
+- **Styled Components**: Combined with TailwindCSS via `twin.macro` for effortless theming and modular styling.
+- **Performance Focus**: Achieved a 100 Lighthouse performance score with a load time of just 1.2 seconds.
+- **vitest**: Chosen as a modern, fast test runner compatible with Jest syntax, ensuring a smooth testing workflow.
+- **Netlify Serverless**: Implements core Back-End solutions with minimal code, emphasizing simplicity and maintainability.
+
+## Design Decisions
+
+- Inspired by the XE Currency app for clean, user-friendly design.
+- Fully responsive for mobile and desktop.
+- Minimalist design using only CSS gradients, SVGs and emojis for a lightweight experience.
+
+## How to Run Locally
+
+#### Clone the repository:
+
+```bash
+git clone https://github.com/francolaiuppa/momence-task.git
 ```
 
-From within the new folder, run `yarn`, then `yarn dev` to start the dev server.
+#### Install the Front-End dependencies
 
-[](#table-of-contents)
-
-## Table of contents
-
-- [Getting started](#getting-started)
-  - [Installation](#installation)
-  - [Add the global styles](#add-the-global-styles)
-  - [Add the twin config](#add-the-twin-config)
-  - [Add the vite config](#add-the-vite-config)
-  - [Add TypeScript types](#add-typescript-types)
-- [Customization](#customization)
-- [Next steps](#next-steps)
-
-[](#getting-started)
-
-## Getting started
-
-### Installation
-
-Install Vite
-
-```shell
-yarn create vite my-vite-app --template react-ts
+```bash
+npm i
 ```
 
-Install the dependencies
+#### Create a new `.env` file with contents
 
-```shell
-yarn add styled-components
-yarn add twin.macro babel-plugin-styled-components babel-plugin-macros tailwindcss -D
+```bash
+UPSTASH_REDIS_URL=rediss://replace:this@with.your.own:6379
+UPSTREAM_API=https://www.cnb.cz/en/financial-markets/foreign-exchange-market/central-bank-exchange-rate-fixing/central-bank-exchange-rate-fixing/daily.txt
 ```
 
-<details>
-  <summary>Install with npm</summary>
+You can register a free account at upstash.com or run your own Redis.
 
-Install Vite
+#### Install Netlify CLI
 
-```shell
-npm create vite@latest my-vite-app -- --template react-ts
+```bash
+npm install netlify-cli -g
 ```
 
-Install the dependencies
+#### Install Back-End dependencies
 
-```shell
-npm install styled-components
-npm install --save-dev twin.macro babel-plugin-styled-components babel-plugin-macros tailwindcss
+```bash
+cd netlify/functions && npm i
 ```
 
-</details>
+#### Run the project
 
-### Add the global styles
+From the root of the project, run:
 
-Twin uses the same preflight base styles as Tailwind to smooth over cross-browser inconsistencies.
-
-The `GlobalStyles` import adds these base styles along with some @keyframes for the animation classes and some global css that makes the [ring classes](https://tailwindcss.com/docs/ring-width) and box-shadows work.
-
-You can import `GlobalStyles` within a new file placed in `src/styles/GlobalStyles.tsx`:
-
-```js
-// src/styles/GlobalStyles.tsx
-import { createGlobalStyle } from 'styled-components'
-import tw, { theme, GlobalStyles as BaseStyles } from 'twin.macro'
-
-const CustomStyles = createGlobalStyle({
-  body: {
-    WebkitTapHighlightColor: theme`colors.purple.500`,
-    ...tw`antialiased`,
-  },
-})
-
-const GlobalStyles = () => (
-  <>
-    <BaseStyles />
-    <CustomStyles />
-  </>
-)
-
-export default GlobalStyles
+```bash
+netlify dev
 ```
 
-Then import the GlobalStyles file in `src/main.tsx`:
+This will run both the Netlify Serverless environment locally and the `vite` managed React app.
 
-```js
-// src/main.tsx
-import React from 'react'
-import { createRoot } from 'react-dom/client'
-import GlobalStyles from './styles/GlobalStyles'
-import App from './App'
+## Tests
 
-const container = document.getElementById('root')
-const root = createRoot(container!)
-root.render(
-  <React.StrictMode>
-    <GlobalStyles />
-    <App />
-  </React.StrictMode>,
-)
+You can run tests using
+
+```bash
+npm run test
 ```
 
-### Add the twin config
+Or if you want to use Vitest's UI:
 
-Twin’s config can be added in a couple of different files.
-
-a) Either in `babel-plugin-macros.config.js`:
-
-```js
-// babel-plugin-macros.config.js
-module.exports = {
-  twin: {
-    preset: 'styled-components',
-  },
-}
+```bash
+npm run test:ui
 ```
 
-b) Or in `package.json`:
+## Feature Showcase
 
-```js
-// package.json
-"babelMacros": {
-  "twin": {
-    "preset": "styled-components"
-  }
-},
-```
+### **Backend**
 
-### Add the vite config
+- **Respectful Caching**: Prevents spamming upstream API and aligns with data update policies.
+- Uses `Cache-Control` headers for optimized frontend responses.
+- Fails early if environment variables are missing to aid debugging.
+- **Single Dependency**: Uses Redis for efficient caching.
+- Fixes CORS limitations for upstream API and restricts usage to the current domain.
 
-Add the following to your vite config:
+### **Frontend**
 
-```typescript
-// vite.config.ts
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+#### Skeleton loaders with custom shimmering animation
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  optimizeDeps: {
-    esbuildOptions: {
-      target: 'es2020',
-    },
-  },
-  esbuild: {
-    // https://github.com/vitejs/vite/issues/8644#issuecomment-1159308803
-    logOverride: { 'this-is-undefined-in-esm': 'silent' },
-  },
-  plugins: [
-    react({
-      babel: {
-        plugins: ['babel-plugin-macros', 'babel-plugin-styled-components'],
-      },
-    }),
-  ],
-})
-```
+  ![Skeleton Loaders](extras/loading-skeletons.gif)
 
-### Add TypeScript types
+Note: You can uncomment the line in `proxy.ts` to induce a delay so you can see the skeleton loaders.
 
-Create a `types/twin.d.ts` file with the declarations from the example:
+#### Lighthouse performance score of 98+ with 1.2s load time
 
-```shell
-mkdir types && cd $_ && curl -o twin.d.ts -L https://github.com/ben-rogerson/twin.examples/raw/master/vite-styled-components-typescript/types/twin.d.ts
-```
+  ![Lighthouse Score](extras/lighthouse.png)
 
-Then add the `types` folder to the include array in your typescript config:
+#### Fully responsive design
 
-```json
-// tsconfig.json
-{
-  // ...
-  "include": ["src", "types"]
-}
-```
+##### Desktop
 
-Then add the following in your typescript config:
+  ![Desktop version](extras/desktop.png)
 
-```json
-// tsconfig.json
-{
-  "compilerOptions": {
-    "skipLibCheck": true
-  },
-  "include": ["src", "types"]
-}
-```
+##### Mobile
 
-[](#customization)
+  ![Mobile version](extras/mobile.png)
 
-## Customization
+Also:
 
-- [View the config options →](https://github.com/ben-rogerson/twin.macro/blob/master/docs/options.md)
-- [Customizing the tailwind config →](https://github.com/ben-rogerson/twin.macro/blob/master/docs/customizing-config.md)
+- Triple-layer caching system for speed and efficiency.
+- Test coverage using `vitest` for robust frontend testing.
 
-[](#next-steps)
+## Conclusion
 
-## Next steps
+Thank you for taking the time to review this project. I hope it showcases my skills, attention to detail, and commitment to delivering high-quality work. If you have any questions or feedback, feel free to reach out to me.
 
-Learn how to work with twin
+Looking forward to the opportunity to collaborate!
 
-- [The prop styling guide](https://github.com/ben-rogerson/twin.macro/blob/master/docs/prop-styling-guide.md) - A must-read guide to level up on prop styling
-- [The styled component guide](https://github.com/ben-rogerson/twin.macro/blob/master/docs/styled-component-guide.md) - A must-read guide on getting productive with styled-components
-
-Learn more about styled-components
-
-- [The css prop](https://styled-components.com/docs/api#css-prop)
-- [The css import](https://styled-components.com/docs/api#css)
-- [The styled import](https://styled-components.com/docs/api#styled)
+Best regards,
+Fran
