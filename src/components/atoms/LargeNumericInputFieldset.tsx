@@ -6,14 +6,14 @@ import getFlagEmoji from '../../utils/getFlagEmoji'
 interface LargeNumericInputFieldsetProps {
   label: string
   currency: string
-  amount: number
+  amount: number | string
   min?: number
   step?: number
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const StyledInput = tw.input`text-2xl font-bold bg-white focus:outline-none w-full`
-const SpanWithMarginRight = tw.span`mr-1`;
+const SpanWithMarginRight = tw.span`mr-1`
 
 const LargeNumericInputFieldset: React.FC<LargeNumericInputFieldsetProps> = ({
   label,
@@ -39,4 +39,4 @@ const LargeNumericInputFieldset: React.FC<LargeNumericInputFieldsetProps> = ({
   )
 }
 
-export default LargeNumericInputFieldset;
+export default LargeNumericInputFieldset
