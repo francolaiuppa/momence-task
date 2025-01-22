@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["node", "vitest/globals", "@testing-library/jest-dom"],
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": [
@@ -23,10 +24,5 @@
   "include": [
     "src",
     "types"
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
   ]
 }
