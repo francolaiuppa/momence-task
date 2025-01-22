@@ -2,13 +2,11 @@ import React from 'react'
 
 import { Heading } from './components/atoms'
 import { Page, ExchangeRatesContent } from './components/molecules'
-import { exchangeRates } from './mockDataDeleteMe'
+import useExchangeRates from './hooks/useExchangeRates'
 
 const App = () => {
-  const error = null;
-  const refetch = () => {};
-  const loading = false;
-  const lastUpdated = new Date().toISOString(); 
+  const { exchangeRates, lastUpdated, loading, error, refetch } =
+    useExchangeRates()
   return (
     <Page>
       <Heading type="h1">CNB Currency Converter</Heading>
